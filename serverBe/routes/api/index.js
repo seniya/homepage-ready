@@ -65,14 +65,14 @@ router.all('*', function (req, res, next) {
 })
 
 router.use('/siteInfo', require('./apiSite.js'))
-router.use('/board', require('./apiBoard.js'))
+router.use('/boards', require('./apiBoard.js'))
 router.use('/sign', require('./apiSign.js'))
 router.use('/download', require('./apiDownload.js'))
 router.use('/demo', require('./apiDemo.js'))
 router.use('/study', require('./study/apiSimplePaint'))
 
 router.use('/pageAuth', require('./apiPage.js'))
-router.use('/article', require('./apiArticle.js'))
+router.use('/articles', require('./apiArticle.js'))
 router.use('/manage', require('./manage'))
 router.use('/file', require('./apiFile.js'))
 router.use('/link', require('./apiLink.js'))

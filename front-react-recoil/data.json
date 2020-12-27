@@ -1,0 +1,28 @@
+{
+  "data": [
+    {
+      "id": 1,
+      "boardId": 1,
+      "boardTitle": "Title 1",
+      "boardContent": "Content 1"
+    },
+    {
+      "id": 2,
+      "boardId": 2,
+      "boardTitle": "Title 2",
+      "boardContent": "Content 2"
+    },
+    {
+      "id": 3,
+      "boardId": 3,
+      "boardTitle": "hhh",
+      "boardContent": "ffff"
+    },
+    {
+      "id": 4,
+      "boardId": 4,
+      "boardTitle": "ggggg",
+      "boardContent": "jjj"
+    }
+  ]
+}

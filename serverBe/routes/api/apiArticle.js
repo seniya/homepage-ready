@@ -4,6 +4,18 @@ const router = express.Router();
 const Board = require('../../models/boards')
 const Article = require('../../models/articles')
 
+router.get('/', (req, res, next) => {  
+  Article.find()
+  .sort({ name: -1 })
+  .select('-contentHtml')  //, '-contentHtml'
+    .then(rs => {
+      res.send({ success: true, data: rs, token: req.token, msg: null })
+    })
+    .catch(e => {
+      res.send({ success: false, data: null, token: req.token, msg: e.message })
+    })
+})
+
 router.get('/list/:_board', (req, res, next) => {
   let { itemsPerPage, page, _board, sortBy, sortDesc } = req.query
   let sort = {}

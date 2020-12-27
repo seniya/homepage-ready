@@ -68,6 +68,29 @@ router.post('/up', (req, res, next) => {
   if (!u.id) throw createError(400, '아이디가 없습니다')
   if (!u.pwd) throw createError(400, '비밀번호가 없습니다')
   if (!u.name) throw createError(400, '이름이 없습니다')
+
+  User.findOne({ id: u.id })
+    .then((r) => {
+      if (r) throw new Error('이미 등록되어 있는 아이디입니다')
+      return User.create(u)
+    })
+    .then((r) => {
+      const pwd = crypto.scryptSync(r.pwd, r._id.toString(), 64, { N: 1024 }).toString('hex')
+      return User.updateOne({ _id: r._id }, { $set: { pwd } })
+    })
+    .then((rs) => {
+      res.send({ success: true, data: rs, token: null, msg: null })      
+    })
+    .catch((e) => {
+      res.send({ success: false, data: null, token: null, msg: e.message })
+    })
+})
+
+router.post('/up-ro', (req, res, next) => {
+  const u = req.body
+  if (!u.id) throw createError(400, '아이디가 없습니다')
+  if (!u.pwd) throw createError(400, '비밀번호가 없습니다')
+  if (!u.name) throw createError(400, '이름이 없습니다')
   if (!u.response) throw createError(400, '로봇 검증이 없습니다')
 
   const ro = {

@@ -3,6 +3,28 @@ const createError = require('http-errors');
 const router = express.Router();
 const Board = require('../../models/boards')
 
+router.get('/', (req, res, next) => {
+  Board.find().sort({ name: -1 })
+    .then(rs => {
+      res.send({ success: true, data: rs, token: req.token, msg: null })
+    })
+    .catch(e => {
+      res.send({ success: false, data: null, token: req.token, msg: e.message })
+    })
+})
+
+router.get('/:id', (req, res, next) => {
+  const _id = req.params.id
+  console.log('/board/:id : ', _id)
+  Board.findOne({ _id })
+    .then(rs => {
+      res.send({ success: true, data: rs, token: req.token, msg: null })
+    })
+    .catch(e => {
+      res.send({ success: false, data: null, token: req.token, msg: e.message })
+    })
+})
+
 router.get('/read/:name', (req, res, next) => {
   const name = req.params.name
   Board.findOne({ name })
@@ -25,6 +47,8 @@ router.get('/list', (req, res, next) => {
       res.send({ success: false, msg: e.message })
     })
 })
+
+
 
 router.all('*', function (req, res, next) {
   next(createError(404, '그런 api 없어'));
